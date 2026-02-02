@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rut y Boaz | GracePrint</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff6b6b">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{
+--bg:#f6f2ea;
+--paper:#ffffff;
+--ink:#1f1f1f;
+--muted:#5f5f5f;
+--accent:#ff6b6b;
+--accent2:#6c63ff;
+--gold:#ffd36e;
+--shadow:0 14px 40px rgba(0,0,0,.12);
+--radius:20px;
+--maxw:1200px;
+--gap:22px;
+--img:50%;
+--txt:50%;
+--fs:19px;
+--fsTitle:30px;
+--fsHead:16px;
+--fsSub:12px;
+--paperBeige:#f3eadc;
+--paperBeige2:#efe2cf;
+--stroke:rgba(0,0,0,.08);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+margin:0;
+font-family:ui-rounded,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+background:
+radial-gradient(1200px 600px at 15% 10%,rgba(255,107,107,.16),transparent 60%),
+radial-gradient(900px 500px at 85% 20%,rgba(108,99,255,.14),transparent 55%),
+linear-gradient(180deg,var(--bg),#ffffff);
+color:var(--ink);
+}
+a{color:inherit}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:18px 14px 28px}
+.top{
+display:flex;align-items:center;justify-content:space-between;gap:12px;
+padding:12px 14px;background:rgba(255,255,255,.75);
+backdrop-filter:blur(10px);
+border:1px solid rgba(0,0,0,.06);
+border-radius:16px;box-shadow:0 6px 16px rgba(0,0,0,.06);
+}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:42px;height:42px;border-radius:14px;background:conic-gradient(from 220deg,var(--accent),#ffd36e,var(--accent2),#59d3ff,var(--accent));box-shadow:inset 0 0 0 2px rgba(255,255,255,.75)}
+.titles{min-width:0}
+.h1{margin:0;font-weight:850;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.h2{margin:0;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.btn{
+appearance:none;border:0;border-radius:14px;padding:10px 12px;
+background:rgba(0,0,0,.06);color:var(--ink);font-weight:750;cursor:pointer;
+transition:transform .08s ease,background .18s ease,opacity .18s ease;
+}
+.btn:hover{background:rgba(0,0,0,.09)}
+.btn:active{transform:scale(.98)}
+.btn.primary{background:linear-gradient(90deg,var(--accent),#ff9a6b);color:#fff}
+.btn.secondary{background:linear-gradient(90deg,var(--accent2),#59d3ff);color:#fff}
+.pager{display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.05);padding:8px 10px;border-radius:14px}
+.pager span{font-size:12px;color:var(--muted)}
+.pager b{font-size:12px}
+.main{margin-top:16px}
+.card{cursor:pointer;display:flex;gap:0;border-radius:22px;overflow:hidden;
+background:var(--paper);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);
+box-shadow:var(--shadow);overflow:hidden;
+}
+.page{display:flex;min-height:560px}
+.left{width:var(--img);background:linear-gradient(180deg,rgba(255,107,107,.08),rgba(108,99,255,.06));border-right:1px solid rgba(0,0,0,.06);display:flex;flex-direction:column}
+.imgFrame{flex:1;display:flex;align-items:center;justify-content:center;padding:16px}
+.imgFrame img{width:100%;height:100%;max-height:560px;object-fit:contain;border-radius:14px;background:#fff;border:1px solid rgba(0,0,0,.06)}
+.cap{padding:12px 16px 14px;color:var(--muted);font-size:12px;border-top:1px dashed rgba(0,0,0,.10)}
+.right{width:var(--txt);padding:18px 18px 16px;display:flex;flex-direction:column}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin:0 0 10px}
+.dot{width:10px;height:10px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));box-shadow:0 0 0 3px rgba(255,107,107,.12)}
+.title{margin:0 0 8px;font-size:28px;line-height:1.15;letter-spacing:.2px}
+.text{margin:0;font-size:var(--fs);line-height:1.6}
+.text p{margin:0 0 12px}
+.meta{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--muted);font-size:12px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.06)}
+.badge i{width:10px;height:10px;border-radius:999px;background:linear-gradient(90deg,#59d3ff,var(--accent2));display:inline-block}
+.toast{
+position:fixed;left:50%;bottom:16px;transform:translateX(-50%);
+background:rgba(0,0,0,.78);color:#fff;padding:10px 12px;border-radius:12px;
+font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s ease;
+}
+.toast.show{opacity:1}
+
+/* Tipografía tipo cuento (sin depender de internet) */
+body{
+  letter-spacing:.1px;
+}
+.title{
+  font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  font-size:var(--fsTitle);
+  font-weight:900;
+}
+.text{
+  font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  font-size:var(--fs);
+  line-height:1.72;
+}
+.text p{
+  margin:0 0 14px;
+}
+.h1{
+  font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  font-weight:950;
+}
+.h2{
+  font-size:var(--fsSub);
+}
+
+/* Contenedor libro: se siente como “tapa” digital */
+.card{cursor:pointer;display:flex;gap:0;border-radius:22px;overflow:hidden;
+  background:linear-gradient(180deg,#ffffff, #fbfaf7);
+  border:1px solid var(--stroke);
+  box-shadow:var(--shadow);
+}
+
+/* Área de imagen con papel beige y textura sutil */
+.left{
+  width:var(--img);
+  background:
+    radial-gradient(1200px 600px at 20% 15%, rgba(255,255,255,.55), transparent 55%),
+    radial-gradient(900px 500px at 80% 30%, rgba(255,255,255,.35), transparent 60%),
+    repeating-radial-gradient(circle at 15% 20%, rgba(0,0,0,.015) 0 2px, transparent 2px 6px),
+    linear-gradient(180deg,var(--paperBeige),var(--paperBeige2));
+  border-right:1px solid var(--stroke);
+}
+
+/* Marco de imagen tipo lámina pegada en libro */
+.imgFrame img{
+  border:1px solid rgba(0,0,0,.10);
+  box-shadow:0 12px 26px rgba(0,0,0,.10);
+}
+
+/* Botones integrados (look pro) */
+.btn{
+  border:1px solid rgba(0,0,0,.08);
+  background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.55));
+  box-shadow:0 8px 18px rgba(0,0,0,.08);
+  font-weight:850;
+}
+.btn:hover{background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.70))}
+.btn.primary{
+  border:0;
+  background:linear-gradient(90deg,var(--accent),#ff9a6b);
+  box-shadow:0 10px 22px rgba(255,107,107,.22);
+}
+.btn.secondary{
+  border:0;
+  background:linear-gradient(90deg,var(--accent2),#59d3ff);
+  box-shadow:0 10px 22px rgba(108,99,255,.20);
+}
+.pager{
+  border:1px solid rgba(0,0,0,.06);
+  background:linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.45));
+}
+.top{
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow:0 10px 22px rgba(0,0,0,.08);
+}
+
+/* Detalles de “cinta” en el lado derecho */
+.right{
+  width:var(--txt);
+  background:
+    radial-gradient(900px 420px at 85% 10%, rgba(108,99,255,.08), transparent 55%),
+    radial-gradient(900px 420px at 15% 85%, rgba(255,107,107,.07), transparent 55%);
+}
+.kicker{
+  font-weight:800;
+}
+
+
+/* === Estilo editorial tipo libro impreso === */
+.right{
+  background:
+    linear-gradient(180deg, #f6f1e8, #efe6d8);
+  padding:42px 46px;
+}
+
+/* Papel con grano suave */
+.right::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    repeating-radial-gradient(circle at 20% 30%,
+      rgba(0,0,0,.015) 0 1px,
+      transparent 1px 4px);
+  pointer-events:none;
+}
+
+/* Texto tipo novela */
+.text{
+  font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  font-size:19px;
+  line-height:1.8;
+  color:#2b2b2b;
+}
+
+/* Primera letra capitular */
+.text p:first-child::first-letter{
+  float:left;
+  font-size:3.2em;
+  line-height:1;
+  padding-right:8px;
+  padding-top:6px;
+  font-weight:700;
+  color:#1f1f1f;
+  font-family: "Palatino Linotype", Palatino, Georgia, serif;
+}
+
+/* Número de página discreto */
+.pageNum{
+  position:absolute;
+  bottom:18px;
+  right:28px;
+  font-size:12px;
+  color:#6f6f6f;
+  font-family: ui-serif, Georgia, serif;
+}
+
+@media (max-width:900px){
+.page{flex-direction:column;min-height:auto}
+.left,.right{width:100%}
+.left{border-right:0;border-bottom:1px solid rgba(0,0,0,.06)}
+.imgFrame img{max-height:420px}
+}
+@media print{
+body{background:#fff}
+.top,.controls,.cap,.toast{display:none}
+.wrap{max-width:none;padding:0}
+.card{cursor:pointer;display:flex;gap:0;border-radius:22px;overflow:hidden;border:0;box-shadow:none;border-radius:0}
+.page{break-after:page}
+.left{border:0}
+.imgFrame img{border:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<div class="brand">
+<div class="logo" aria-hidden="true"></div>
+<div class="titles">
+<p class="h1" id="bookTitle">Ebook</p>
+<p class="h2" id="bookSub">GracePrint</p>
+</div>
+</div>
+
+<div class="controls">
+<div class="pager" aria-label="Paginación">
+<button class="btn" id="prevBtn" type="button">◀</button>
+<span>Página <b id="pageNow">1</b> de <b id="pageTotal">1</b></span>
+<button class="btn" id="nextBtn" type="button">▶</button>
+</div>
+
+<button class="btn" id="tocBtn" type="button">Índice</button>
+<button class="btn" id="fontBtn" type="button">A</button>
+<button class="btn secondary" id="installBtn" type="button" style="display:none">Instalar</button>
+<button class="btn primary" id="printBtn" type="button">PDF</button>
+</div>
+</header>
+
+<main class="main">
+<section class="card">
+<div class="page">
+<section class="left">
+<div class="imgFrame">
+<img id="pageImg" src="" alt="">
+</div>
+<div class="cap" id="pageCap">Creado por GracePrint</div>
+</section>
+
+<section class="right">
+<div class="kicker"><span class="dot" aria-hidden="true"></span><span id="kickerText">Capítulo</span></div>
+<h2 class="title" id="pageTitle">Título</h2>
+<div class="text" id="pageText"></div>
+
+<div class="meta">
+<span class="badge"><i aria-hidden="true"></i><span id="credit">Creado por GracePrint</span></span>
+<span id="smallCounter">1</span>
+</div>
+</section>
+</div>
+</section>
+</main>
+</div>
+
+<div class="toast" id="toast">Listo</div>
+
+<script>
+let DATA=null;
+let idx=0;
+let fontStep=0;
+const fs=[18,20,22];
+
+const elTitle=document.getElementById("bookTitle");
+const elSub=document.getElementById("bookSub");
+const elImg=document.getElementById("pageImg");
+const elCap=document.getElementById("pageCap");
+const elKicker=document.getElementById("kickerText");
+const elPT=document.getElementById("pageTitle");
+const elText=document.getElementById("pageText");
+const elCredit=document.getElementById("credit");
+const elNow=document.getElementById("pageNow");
+const elTotal=document.getElementById("pageTotal");
+const elSmall=document.getElementById("smallCounter");
+const toast=document.getElementById("toast");
+
+function showToast(msg){
+toast.textContent=msg;
+toast.classList.add("show");
+setTimeout(()=>toast.classList.remove("show"),1200);
+}
+
+function setFont(){
+document.documentElement.style.setProperty("--fs", fs[fontStep] + "px");
+}
+
+function render(){
+const pages=DATA.pages;
+const p=pages[idx];
+
+elImg.src=p.img;
+elImg.alt=p.title || "Ilustración";
+elPT.textContent=p.title || "";
+elText.innerHTML=(p.text||[]).map(t=>`<p>${escapeHtml(t)}</p>`).join("");
+elKicker.textContent="Escena " + (idx+1);
+elNow.textContent=String(idx+1);
+elTotal.textContent=String(pages.length);
+elSmall.textContent=String(idx+1);
+elCap.textContent=DATA.meta.credit || "Creado por GracePrint";
+elCredit.textContent=DATA.meta.credit || "Creado por GracePrint";
+
+document.getElementById("prevBtn").disabled = idx===0;
+document.getElementById("nextBtn").disabled = idx===pages.length-1;
+
+localStorage.setItem("graceprint_idx", String(idx));
+}
+
+function escapeHtml(s){
+return String(s).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");
+}
+
+async function init(){
+const res=await fetch("content.json");
+DATA=await res.json();
+
+elTitle.textContent=DATA.meta.bookTitle || "Ebook";
+elSub.textContent=DATA.meta.subtitle || "";
+
+const saved=parseInt(localStorage.getItem("graceprint_idx")||"0",10);
+if(!Number.isNaN(saved)) idx=Math.max(0,Math.min(DATA.pages.length-1,saved));
+
+setFont();
+render();
+}
+
+document.getElementById("prevBtn").addEventListener("click",()=>{idx=Math.max(0,idx-1);render();});
+document.getElementById("nextBtn").addEventListener("click",()=>{idx=Math.min(DATA.pages.length-1,idx+1);render();});
+document.getElementById("printBtn").addEventListener("click",()=>window.print());
+
+document.getElementById("fontBtn").addEventListener("click",()=>{
+fontStep=(fontStep+1)%fs.length;
+setFont();
+showToast("Tamaño: " + fs[fontStep]);
+});
+
+document.addEventListener("keydown",(e)=>{
+if(e.key==="ArrowLeft") {idx=Math.max(0,idx-1);render();}
+if(e.key==="ArrowRight"){idx=Math.min(DATA.pages.length-1,idx+1);render();}
+});
+
+document.getElementById("tocBtn").addEventListener("click",()=>{
+const list=DATA.pages.map((p,i)=>`${i+1}. ${p.title}`).join("\n");
+const pick=prompt("Índice\n\n" + list + "\n\nEscribe el número de página:");
+if(!pick) return;
+const n=parseInt(pick,10);
+if(Number.isFinite(n) && n>=1 && n<=DATA.pages.length){
+idx=n-1; render(); showToast("Página " + n);
+}
+});
+
+let deferredPrompt=null;
+const installBtn=document.getElementById("installBtn");
+window.addEventListener("beforeinstallprompt",(e)=>{
+e.preventDefault();
+deferredPrompt=e;
+installBtn.style.display="inline-block";
+});
+installBtn.addEventListener("click",async ()=>{
+if(!deferredPrompt) return;
+deferredPrompt.prompt();
+await deferredPrompt.userChoice;
+deferredPrompt=null;
+installBtn.style.display="none";
+});
+
+if("serviceWorker" in navigator){
+window.addEventListener("load",()=>{
+navigator.serviceWorker.register("sw.js").catch(()=>{});
+});
+}
+
+init();
+</script>
+
+<script>
+let startX = null;
+
+function nextPage(){ window.go(1); }
+function prevPage(){ window.go(-1); }
+
+const book = document.querySelector('.card');
+
+book.addEventListener('click', e=>{
+  const rect = book.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  if(x > rect.width/2){ nextPage(); }
+  else{ prevPage(); }
+});
+
+book.addEventListener('touchstart', e=>{
+  startX = e.touches[0].clientX;
+},{passive:true});
+
+book.addEventListener('touchend', e=>{
+  if(startX===null) return;
+  const endX = e.changedTouches[0].clientX;
+  const diff = endX - startX;
+  if(Math.abs(diff) < 40) return;
+  if(diff < 0){ nextPage(); }
+  else{ prevPage(); }
+  startX=null;
+},{passive:true});
+</script>
+
+</body>
+</html>
